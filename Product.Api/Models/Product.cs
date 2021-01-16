@@ -1,4 +1,4 @@
-﻿namespace Data.Models
+﻿namespace Product.Api.Models
 {
     public class Product
     {
