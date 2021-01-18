@@ -22,7 +22,7 @@ namespace Product.Data.Query
 
             public async Task<IEnumerable<Interfaces.Models.Product>> Handle(FindProducts request, CancellationToken cancellationToken)
             {
-                var result = await _dbContext.Products.ToListAsync();
+                var result = await _dbContext.Products.Include(p => p.Categories).ToListAsync();
                 return _mapper.Map<IEnumerable<Interfaces.Models.Product>>(result);
             }
         }

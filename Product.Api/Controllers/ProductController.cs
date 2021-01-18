@@ -28,6 +28,16 @@ namespace Product.Api.Controllers
             {
                 Id = product.Id,
                 Name = product.Name,
+                Categories = product.Categories.Select(c => MapToCategory(c)).ToArray()
+            };
+        }
+
+        private Models.Category MapToCategory(Interfaces.Models.Category category)
+        {
+            return new Models.Category
+            {
+                Id = category.Id,
+                Name = category.Name
             };
         }
     }

@@ -7,6 +7,8 @@ namespace Product.Data
         public AutoMapperConfig()
         {
             CreateMap<Entities.Product, Interfaces.Models.Product>(MemberList.Destination);
+            CreateMap<Entities.Category, Interfaces.Models.Category>(MemberList.Destination);
+
         }
     }
 }
