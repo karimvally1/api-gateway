@@ -1,7 +1,6 @@
 ﻿using Common.Enums;
 using Common.Extensions;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Product.Data
 {
