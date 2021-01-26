@@ -10,8 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\Product.Data\Product.Data.csproj" />
-    <ProjectReference Include="..\Product.Interfaces\Product.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace Product.Interfaces.Models
+﻿namespace Product.Service.Models
 {
     public class Category
     {

@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using Product.Data.Query;
 
 namespace Product.Api.Controllers
 {
@@ -8,20 +10,33 @@ namespace Product.Api.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IMediator _mediator;
 
-        public ProductController(IProductService productService)
+        public ProductController(IMediator mediator)
         {
-            _productService = productService;
+            _mediator = mediator;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var products = await _productService.GetActiveProducts();
+            var products = await _mediator.Send(new FindProducts());
             return Ok(products.Select(p => MapToProduct(p)));
         }
 
-        private Models.Product MapToProduct(Interfaces.Models.Product product)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id)
+        {
+            var products = await _mediator.Send(new FindProducts());
+            var product = products.SingleOrDefault(p => p.Id == id);
+
+            if (product == default(Service.Models.Product))
+                return BadRequest();
+
+            return Ok(MapToProduct(product));
+        }
+
+        private Models.Product MapToProduct(Service.Models.Product product)
         {
             return new Models.Product
             {
@@ -31,7 +46,7 @@ namespace Product.Api.Controllers
             };
         }
 
-        private Models.Category MapToCategory(Interfaces.Models.Category category)
+        private Models.Category MapToCategory(Service.Models.Category category)
         {
             return new Models.Category
             {

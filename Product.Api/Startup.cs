@@ -7,7 +7,6 @@ using AutoMapper;
 using MediatR;
 using Product.Data.Query;
 using Product.Data;
-using Product.Service;
 
 namespace Product.Api
 {
@@ -23,7 +22,6 @@ namespace Product.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Products")), ServiceLifetime.Transient);
-            services.AddTransient<IProductService, ProductService>();
             services.AddAutoMapper(typeof(FindProducts));
             services.AddMediatR(typeof(FindProducts.Handler).Assembly);
             services.AddControllers();
