@@ -1,7 +1,10 @@
 ﻿using System.Threading.Tasks;
+using System.Net.Http;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Review.Interfaces;
+using MediatR;
+using Review.Data.Query;
+using Review.Data.Command;
 
 namespace Review.Api.Controllers
 {
@@ -9,27 +12,43 @@ namespace Review.Api.Controllers
     [ApiController]
     public class ReviewController : ControllerBase
     {
-        private readonly IReviewService _reviewService;
+        private readonly IMediator _mediator;
+        private readonly HttpClient _httpClient;
 
-        public ReviewController(IReviewService reviewService)
+        public ReviewController(IMediator mediator)
         {
-            _reviewService = reviewService;
+            _mediator = mediator;
+            _httpClient = new HttpClient();
         }
 
         [HttpGet("{productId}")]
         public async Task<IActionResult> GetProductReviews(int productId)
         {
-            var reviews = await _reviewService.GetProductReviews(productId);
+            var reviews = await _mediator.Send(new FindReviews.Query() { ProductId = productId });
             return Ok(reviews.Select(r => MapToReview(r)));
         }
 
-        private Models.Review MapToReview(Interfaces.Models.Review review)
+        [HttpPost("{productId}")]
+        public async Task<IActionResult> CreateProductReview(int productId, [FromBody] Models.Review request)
+        {
+            var review = new Service.Models.Review
+            {
+                Title = request.Title,
+                Description = request.Description,
+                Rating = request.Rating
+            };
+
+            await _mediator.Send(new CreateReviewCommand() { Review = review, ProductId = productId });
+            return Ok();
+        }
+
+        private Models.Review MapToReview(Service.Models.Review review)
         {
             return new Models.Review
             {
                 Title = review.Title,
                 Description = review.Description,
-                Rate = review.Rating.Rate
+                Rating = review.Rating
             };
         }
     }

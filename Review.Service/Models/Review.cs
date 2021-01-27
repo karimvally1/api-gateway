@@ -1,4 +1,4 @@
-﻿namespace Review.Interfaces.Models
+﻿namespace Review.Service.Models
 {
     public class Review
     {
@@ -8,6 +8,6 @@
 
         public string Description { get; set; }
 
-        public Rating Rating { get; set; }
+        public int Rating { get; set; }
     }
 }

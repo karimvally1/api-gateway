@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Review.Data\Review.Data.csproj" />
-    <ProjectReference Include="..\Review.Service\Review.Service.csproj" />
   </ItemGroup>
 
 </Project>

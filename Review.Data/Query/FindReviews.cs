@@ -7,14 +7,14 @@ using MediatR;
 
 namespace Review.Data.Query
 {
-    public class FindReviews : IRequest<IEnumerable<Interfaces.Models.Review>>
+    public class FindReviews : IRequest<IEnumerable<Service.Models.Review>>
     {
-        public class Query : IRequest<IEnumerable<Interfaces.Models.Review>>
+        public class Query : IRequest<IEnumerable<Service.Models.Review>>
         {
             public int ProductId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, IEnumerable<Interfaces.Models.Review>>
+        public class Handler : IRequestHandler<Query, IEnumerable<Service.Models.Review>>
         {
             private readonly IMapper _mapper;
             private readonly ReviewDbContext _dbContext;
@@ -25,10 +25,10 @@ namespace Review.Data.Query
                 _dbContext = dbContext;
             }
 
-            public async Task<IEnumerable<Interfaces.Models.Review>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<IEnumerable<Service.Models.Review>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var result = await _dbContext.Reviews.Include(r => r.Rating).ToListAsync();
-                return _mapper.Map<IEnumerable<Interfaces.Models.Review>>(result);
+                var result = await _dbContext.Reviews.ToListAsync();
+                return _mapper.Map<IEnumerable<Service.Models.Review>>(result);
             }
         }
     }

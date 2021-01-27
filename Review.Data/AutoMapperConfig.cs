@@ -6,8 +6,7 @@ namespace Review.Data
     {
         public AutoMapperConfig()
         {
-            CreateMap<Entities.Review, Interfaces.Models.Review>(MemberList.Destination);
-            CreateMap<Entities.Rating, Interfaces.Models.Rating>(MemberList.Destination);
+            CreateMap<Entities.Review, Service.Models.Review>(MemberList.Destination);
         }
     }
 }

@@ -8,9 +8,4 @@
     <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Review.Data\Review.Data.csproj" />
-    <ProjectReference Include="..\Review.Interfaces\Review.Interfaces.csproj" />
-  </ItemGroup>
-
 </Project>

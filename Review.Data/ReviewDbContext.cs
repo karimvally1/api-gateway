@@ -6,9 +6,6 @@ namespace Review.Data
     {
         public DbSet<Entities.Review> Reviews { get; set; }
 
-        public DbSet<Entities.Rating> Ratings { get; set; }
-
-
         public ReviewDbContext(DbContextOptions<ReviewDbContext> options)
        : base(options)
         { }

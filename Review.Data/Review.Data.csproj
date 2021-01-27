@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Review.Interfaces\Review.Interfaces.csproj" />
+    <ProjectReference Include="..\Review.Service\Review.Service.csproj" />
   </ItemGroup>
 
 </Project>
