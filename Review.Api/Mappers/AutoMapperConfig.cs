@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 
-namespace Review.Data
+namespace Review.Api.Mappers
 {
     public class AutoMapperConfig : Profile
     {
         public AutoMapperConfig()
         {
-            CreateMap<Entities.Review, Service.Models.Review>(MemberList.Source).ReverseMap();
+            CreateMap<Service.Models.Review, Models.Review>(MemberList.Destination).ReverseMap();
         }
     }
 }

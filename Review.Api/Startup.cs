@@ -8,6 +8,7 @@ using MediatR;
 using Review.Data;
 using Review.Data.Query;
 using Review.Data.Command;
+using Review.Api.Controllers;
 
 namespace Review.Api
 {
@@ -23,8 +24,12 @@ namespace Review.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ReviewDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Reviews")), ServiceLifetime.Transient);
-            services.AddAutoMapper(typeof(FindReviews));
-            services.AddMediatR(typeof(FindReviews.Handler).Assembly);
+            services.AddAutoMapper(typeof(FindProductReviews));
+            services.AddAutoMapper(typeof(FindReview));
+            services.AddAutoMapper(typeof(ReviewController));
+            services.AddAutoMapper(typeof(ProductController));
+            services.AddMediatR(typeof(FindProductReviews.Handler).Assembly);
+            services.AddMediatR(typeof(FindReview.Handler).Assembly);
             services.AddMediatR(typeof(CreateReview.Handler).Assembly);
             services.AddControllers();
         }

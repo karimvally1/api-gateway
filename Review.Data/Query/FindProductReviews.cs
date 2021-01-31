@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using MediatR;
 
 namespace Review.Data.Query
 {
-    public class FindReviews : IRequest<IEnumerable<Service.Models.Review>>
+    public class FindProductReviews : IRequest<IEnumerable<Service.Models.Review>>
     {
         public class Query : IRequest<IEnumerable<Service.Models.Review>>
         {
@@ -27,7 +28,7 @@ namespace Review.Data.Query
 
             public async Task<IEnumerable<Service.Models.Review>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var result = await _dbContext.Reviews.ToListAsync();
+                var result = await _dbContext.Reviews.Where(r => r.ProductId == request.ProductId).ToListAsync();
                 return _mapper.Map<IEnumerable<Service.Models.Review>>(result);
             }
         }

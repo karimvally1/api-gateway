@@ -27,6 +27,7 @@ namespace Review.Data.Command
             protected override async Task Handle(CreateReviewCommand command, CancellationToken cancellationToken)
             {
                 var review = _mapper.Map<Entities.Review>(command.Review);
+                review.ProductId = command.ProductId;
                 await _dbContext.Reviews.AddAsync(review);
                 await _dbContext.SaveChangesAsync();
             }
