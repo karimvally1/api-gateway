@@ -1,18 +1,33 @@
 version: '3.4'
 
 services:
-  db:
-    container_name: sql-server-db
+  product-db:
+    container_name: product
     image: mcr.microsoft.com/mssql/server:2017-latest
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: TesT111t
     ports:
-      - "1433:1433"
+      - "1434:1433"
   product.api:
-    image: ${DOCKER_REGISTRY-}productapi
+    image: ${DOCKER_REGISTRY-}product
     build:
       context: .
       dockerfile: Product.Api/Dockerfile
     depends_on:
-      - db
+      - product-db
+  review-db:
+    container_name: review
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: TesT111t
+    ports:
+      - "1435:1433"
+  review.api:
+    image: ${DOCKER_REGISTRY-}review
+    build:
+      context: .
+      dockerfile: Review.Api/Dockerfile
+    depends_on:
+      - review-db
