@@ -9,8 +9,10 @@ services:
       SA_PASSWORD: TesT111t
     ports:
       - "1434:1433"
-  product.api:
-    image: ${DOCKER_REGISTRY-}product
+  product-api:
+    image: product:latest
+    environment:
+      ConnectionStrings__Product: "Data Source=db,1433;Initial Catalog=Product;uid=sa;pwd=TesT111t!;Integrated Security=false;MultipleActiveResultSets=True"
     build:
       context: .
       dockerfile: Product.Api/Dockerfile
@@ -24,8 +26,10 @@ services:
       SA_PASSWORD: TesT111t
     ports:
       - "1435:1433"
-  review.api:
-    image: ${DOCKER_REGISTRY-}review
+  review-api:
+    image: review:latest
+    environment:
+      ConnectionStrings__Review: "Data Source=db,1433;Initial Catalog=Review;uid=sa;pwd=TesT111t!;Integrated Security=false;MultipleActiveResultSets=True"
     build:
       context: .
       dockerfile: Review.Api/Dockerfile
